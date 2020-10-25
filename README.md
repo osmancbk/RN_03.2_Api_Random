@@ -1,2 +1,4 @@
-# RN_03.2_Api_Random
-ReactNative Api Works
+# React Native Api Random Project
+</hr>
+<img src="./src/image/api.gif" alt="api" height=600 >
+

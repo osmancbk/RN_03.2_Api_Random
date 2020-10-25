@@ -1,0 +1,54 @@
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import { SafeAreaView, View, Text, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { Button, RestaurantCard } from './components'
+
+const Main = (props) => {
+    const [isLoading, setLoading] = useState(true);
+    const [restaurantData, setRestaurantData] = useState(null); // false ve [] da oldu
+
+
+    // ASYNC-AWAIT
+    const fetchRestaurant = async () => {
+        setLoading(true);
+        // alert('veri geliyor..') scop sonuna yazarsak veriden sonra ekrana çıkar.
+        const response = await axios.get('https://random-data-api.com/api/restaurant/random_restaurant');
+        setRestaurantData(response.data);
+        setLoading(false);
+    }
+ 
+    // // THEN-CATCH
+    // const fetchRestaurant = () => {
+    //     setLoading(true);
+    //     axios.get('https://random-data-api.com/api/restaurant/random_restaurant')
+    //         .then(response => {
+    //             setRestaurantData(response.data);
+    //             setLoading(false);
+    //         })
+    //      alert('veri geliyor..')
+    // }
+
+
+    useEffect(() => {
+        fetchRestaurant();
+    }, [])
+    return (
+        <SafeAreaView style={{ flex: 1 }}>
+            <View style={{ flex: 1 }}>
+                {
+                    isLoading ?
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                            <ActivityIndicator size="large" />
+                        </View>
+                        :
+                        <RestaurantCard item={restaurantData} />
+                }
+                <Button
+                    title="Suggest New Restaurant"
+                    onNewRequest={() => fetchRestaurant()}
+                />
+            </View>
+        </SafeAreaView>
+    );
+}
+export default Main;
