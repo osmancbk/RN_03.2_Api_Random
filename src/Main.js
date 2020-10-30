@@ -5,13 +5,12 @@ import { Button, RestaurantCard } from './components'
 
 const Main = (props) => {
     const [isLoading, setLoading] = useState(true);
-    const [restaurantData, setRestaurantData] = useState(null); // false ve [] da oldu
+    const [restaurantData, setRestaurantData] = useState(null); 
 
 
     // ASYNC-AWAIT
     const fetchRestaurant = async () => {
         setLoading(true);
-        // alert('veri geliyor..') scop sonuna yazarsak veriden sonra ekrana çıkar.
         const response = await axios.get('https://random-data-api.com/api/restaurant/random_restaurant');
         setRestaurantData(response.data);
         setLoading(false);
